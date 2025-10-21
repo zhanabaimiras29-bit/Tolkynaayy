@@ -1,0 +1,338 @@
+
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Портфолио — Студент Нархоз, Программист</title>
+  <meta name="description" content="Портфолио студента 3 курса Нархоз — обучается на программиста. Проекты, навыки, контакты." />
+  <style>
+    /* ===== Reset & base ===== */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent1:#6ee7b7;
+      --accent2:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+      --radius:16px;
+      --max-width:1100px;
+      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font-sans);background: #ba95a9;
+background: radial-gradient(circle, rgba(186, 149, 169, 1) 0%, rgba(30, 72, 120, 1) 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
+    }
+    .container{width:100%;max-width:var(--max-width)}
+
+    /* ===== Header / Nav ===== */
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#042033}
+    nav{display:flex;gap:14px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    nav a:hover{color:var(--accent2);background:var(--glass)}
+
+    /* ===== Hero ===== */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;margin-bottom:40px}
+    .card{background:linear-gradient(180deg,var(--card), rgba(8,14,22,0.6));padding:26px;border-radius:var(--radius);box-shadow:0 6px 24px rgba(2,6,23,0.6);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03)}
+    .intro h1{font-size:28px;margin:0 0 10px}
+    .intro .subtitle{color:var(--muted);margin-bottom:14px}
+    .typing{display:inline-block;white-space:nowrap;overflow:hidden;border-right:2px solid rgba(230,238,248,0.07);font-weight:700}
+
+    /* Typing animation */
+    @keyframes typing{
+      from{width:0}
+      to{width:100%}
+    }
+    @keyframes blink{
+      50%{border-color:transparent}
+    }
+    .typingText{
+      display:inline-block;
+      width:18ch; /* controls visible length */
+      animation:typing 2.8s steps(18,end) 0.4s 1 normal both, blink 0.8s step-end infinite;
+    }
+
+    /* Floating avatar box */
+    .avatar{
+      width:100%;height:100%;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;padding:18px
+    }
+    .avatar .photo{width:140px;height:140px;border-radius:18px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:800;color:#042033;font-size:26px;box-shadow:0 10px 30px rgba(6,10,20,0.6)}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+    .photo{animation:floaty 4s ease-in-out infinite}
+
+    /* Contact quick info */
+    .quick{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:14px}
+
+    /* ===== Sections ===== */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .skills .skill{margin-bottom:12px}
+    .skill-name{display:flex;justify-content:space-between;font-weight:600;color:var(--muted);font-size:14px}
+    .skill-bar{background:rgba(255,255,255,0.04);height:12px;border-radius:999px;margin-top:8px;overflow:hidden}
+    .skill-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--accent1),var(--accent2));transform-origin:left}
+
+    /* animate skill fill when page loads */
+    @keyframes fill100{from{width:0}to{width:var(--w)}}
+
+    /* Projects cards */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .project-card{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));transition:transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;cursor:pointer}
+    .project-card:hover{transform:translateY(-8px) rotateZ(-1deg);box-shadow:0 18px 40px rgba(8,12,20,0.6)}
+    .project-title{font-weight:700;margin:0 0 6px}
+    .project-desc{color:var(--muted);font-size:14px}
+
+    /* Footer */
+    footer{margin-top:32px;padding:18px;border-radius:12px;background:var(--glass-strong);display:flex;justify-content:space-between;align-items:center}
+
+    /* Responsiveness */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .projects{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+    }
+
+    /* small animations for section titles */
+    .section-title{display:inline-block;padding:6px 10px;border-radius:10px;background:linear-gradient(90deg, rgba(96,165,250,0.08), rgba(110,231,183,0.06));color:var(--accent2);font-weight:700}
+
+    /* small floating icons effect */
+    .floating-icons{position:relative;height:80px}
+    .floating-icons span{position:absolute;font-size:18px;opacity:0.9}
+    .ic1{left:10%;top:10%;animation:floaty 6s linear infinite}
+    .ic2{left:60%;top:20%;animation:floaty 5s linear infinite}
+    .ic3{left:40%;top:55%;animation:floaty 7s linear infinite}
+
+    /* Simple form styles */
+    .contact-form{display:flex;flex-direction:column;gap:10px}
+    .contact-form input,.contact-form textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:inherit}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#032033;font-weight:800;border:none;cursor:pointer}
+
+    .imgg{
+        width: 100%;
+        height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="dot">MZ</div>
+        <div>
+          <div style="font-weight:800">Miras Z.</div>
+          <div style="font-size:12px;color:var(--muted)">Студент 3 курса — Нархоз</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">Обо мне</a>
+        <a href="#skills">Навыки</a>
+        <a href="#projects">Проекты</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card intro">
+          <h1>Привет! Я — <span style="color:var(--accent1)">Miras</span></h1>
+          <div class="subtitle">Студент 3 курса колледжа Нархоз, учусь на программиста.</div>
+
+          <div style="margin-bottom:12px">
+            <span class="section-title">Разрабатываю на Java, JavaScript, HTML/CSS</span>
+          </div>
+
+          <p style="color:var(--muted);margin-top:12px">Я люблю решать практические задачи, делаю учебные и личные проекты. В будущем хочу работать в веб-разработке и бэкенде.</p>
+
+          <p style="margin-top:18px">
+            <strong>Сейчас:</strong>
+            <span class="typing">
+              <span class="typingText">Студент 3 курса • Программист • Люблю кодить</span>
+            </span>
+          </p>
+
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" href="#projects">Посмотреть проекты</a>
+            <a class="btn" style="opacity:0.9;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)">Резюме (PDF)</a>
+          </div>
+        </div>
+
+        <aside class="card avatar">
+          <div class="photo">
+            <img class="imgg" src="./5453961335063838380.jpg" alt="">
+          </div>
+          <div class="quick">
+            <div><strong>Вуз:</strong> Колледж Нархоз</div>
+            <div><strong>Курс:</strong> 3</div>
+            <div><strong>Специальность:</strong> Программист</div>
+            <div><strong>Город:</strong> Алматы (пример)</div>
+          </div>
+
+          <div style="width:100%;margin-top:6px">
+            <div style="font-weight:700;margin-bottom:6px">Связь</div>
+            <div style="display:flex;gap:8px">
+              <a class="btn" href="#contact">Написать</a>
+              <a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)">Telegram</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" style="margin-bottom:28px">
+        <div class="card">
+          <h3 style="margin-top:0">Обо мне</h3>
+          <p style="color:var(--muted)">Я учусь в колледже Нархоз на 3 курсе по специальности «Программист». Люблю web-разработку — фронтенд и немного бэкенд; интересуюсь оптимизацией и алгоритмами. В свободное время учу новые технологии и делаю мини-проекты.</p>
+
+          <div class="floating-icons" aria-hidden>
+            <span class="ic1">💻</span>
+            <span class="ic2">⚙️</span>
+            <span class="ic3">📚</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" style="margin-bottom:22px" class="skills">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h3 style="margin:0">Навыки</h3>
+          <div style="color:var(--muted);font-size:14px">Уровень: начальный — средний</div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;gap:18px;flex-wrap:wrap">
+            <div style="flex:1;min-width:260px">
+              <div class="skill">
+                <div class="skill-name">HTML / CSS <span>85%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:85%;width:85%;animation:fill100 1.4s ease forwards;"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-name">JavaScript <span>70%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:70%;width:70%;animation:fill100 1.4s 0.2s ease forwards;"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-name">Java <span>65%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:65%;width:65%;animation:fill100 1.4s 0.4s ease forwards;"></div></div>
+              </div>
+            </div>
+
+            <div style="flex:1;min-width:260px">
+              <div class="skill">
+                <div class="skill-name">Git / GitHub <span>60%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:60%;width:60%;animation:fill100 1.4s 0.6s ease forwards;"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-name">SQL <span>50%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:50%;width:50%;animation:fill100 1.4s 0.8s ease forwards;"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-name">Английский <span>Средний</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="--w:45%;width:45%;animation:fill100 1.4s 1s ease forwards;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" style="margin-bottom:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h3 style="margin:0">Проекты</h3>
+          <div style="color:var(--muted);font-size:14px">Учебные и личные</div>
+        </div>
+
+        <div class="projects">
+          <div class="project-card card">
+            <div class="project-title">Веб-сайт блога</div>
+            <div class="project-desc">Адаптивный сайт с HTML/CSS и простым JS для постов и навигации.</div>
+          </div>
+
+          <div class="project-card card">
+            <div class="project-title">Калькулятор на Java</div>
+            <div class="project-desc">Учебный проект — консольный калькулятор с операциями и обработкой ошибок.</div>
+          </div>
+
+          <div class="project-card card">
+            <div class="project-title">Todo (JavaScript)</div>
+            <div class="project-desc">Мини-приложение для заметок с локальным хранилищем.</div>
+          </div>
+
+          <div class="project-card card">
+            <div class="project-title">Курсовая (пример)</div>
+            <div class="project-desc">Проект по теме из учёбы: простая информационная система.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" style="margin-bottom:18px">
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <div style="flex:1;min-width:300px" class="card">
+            <h3 style="margin-top:0">Контакты</h3>
+            <p style="color:var(--muted)">Напиши мне в Telegram или Email — всегда рад новым знакомствам и предложениям по проектам.</p>
+
+            <form class="contact-form" onsubmit="event.preventDefault();alert('Спасибо! Сообщение отправлено (демо).')">
+              <input type="text" placeholder="Ваше имя" required />
+              <input type="email" placeholder="Email или Telegram" required />
+              <textarea rows="4" placeholder="Сообщение"></textarea>
+              <button class="btn" type="submit">Отправить</button>
+            </form>
+          </div>
+
+          <div style="width:340px;min-width:260px" class="card">
+            <h4 style="margin-top:0">Быстрая инфа</h4>
+            <div style="color:var(--muted);font-size:14px;line-height:1.6">
+              <div><strong>Телеграм:</strong> @your_telegram</div>
+              <div><strong>Email:</strong> your@email.com</div>
+              <div><strong>Готов работать:</strong> стажировки, фриланс-задания</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© <strong>Miras Z.</strong> — Студент Нархоз</div>
+      <div style="color:var(--muted)">Сайт создан как портфолио • Адаптивный дизайн</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Light JS: improve typing effect to loop phrases
+    (function(){
+      const el = document.querySelector('.typingText');
+      const phrases = ['Студент 3 курса • Программист','Делаю учебные проекты','Люблю web и алгоритмы'];
+      let idx = 0;
+      function showPhrase(i){
+        el.textContent = phrases[i];
+        // restart CSS animation by cloning
+        const parent = el.parentNode;
+        parent.replaceChild(el.cloneNode(true), el);
+      }
+      setInterval(()=>{
+        idx = (idx+1)%phrases.length;
+        const span = document.querySelector('.typingText');
+        span.textContent = phrases[idx];
+        span.style.width = span.textContent.length + 'ch';
+        // re-run animation by toggling class (simple approach)
+        span.style.animation = 'none';
+        void span.offsetWidth;
+        span.style.animation = 'typing 2.6s steps(' + span.textContent.length + ',end) 0.2s 1 normal both, blink 0.8s step-end infinite';
+      },3800);
+    })();
+  </script>
+</body>
+</html>
